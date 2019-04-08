@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <title>gRPC</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
 </head>
 <div>
 	<h1>Overview</h1>
@@ -22,10 +21,10 @@
 <div>
 	<h2>Protocol Buffers</h2>
 	<p>Protocol buffers are meant to be a "language neutral" format, suggesting that it is an intermediary form of data that can be processed by any programming language. This is useful for client-server applications as the languages used by client and server do not need to be indentical or known in order to communicate effectively. Some more commonly known language neutral formats include json and xml. A protocol buffer is stored in a .proto file which contain "messages" which are data structures. Within each messages, there are varaible names and types that are defined. This is very similar to class structures in object orient programming. Below, there is an example of a protocol buffer that defines an addressbook. </p>
-	<img src="/images/sample_proto.png" />
+	<img src="sample_proto.png" />
 	<p>As you can see in the image above, a Person message is created which contains a variety of values: a string for name, an int for id, an enum (finite list of values) for phone type, etc. Each variable is assigned a "tag" as an identifier for that variable. Additionally, each variable is prefaced with "required", "optional", or "repeated" which defines the use and instantiation of these variables. Once this file is complete, the protocol buffer can be compiled into a class in your respective programming language in the command line using "protoc" from the grpcio-tools package and providing the directory of the protocol file, language that you're using, and the language you are using. Now you are able to use this structure as a class in your code with accessor methods provided for fields. </p>
 	<p> Additionally, there are methods that you can use in order to enhance your construction of protocol buffers. Some convenient methods include IsInitialized(), CopyFrom(message), and Clear() whose functions are fairly self explanatory. Data can be serialized to a string via SerializeToString and parsed from a string using ParseFromString. With these methods, it's easy to work with protocol buffers within a language of your choice. Shown below is an example in Python.</p>
-	<img src='images/serialization.png' />
+	<img src='serialization.png' />
 	<p> Last but not least, you are able to change protocol buffers even after instances have been created, you can update the definition of a protocol buffer. The only rules that must be followed to maintain backwards and forwards compatibility are that you cannot change required variables or tag numbers. Additionally, new tag unmbers for optional or repeated fields must be unique.</p>
 	<p>Finally, with an understanding of protocol buffers, we are able to tackle the GRPC itself and how to use it.</p>
 </div>
@@ -34,12 +33,12 @@
 	<p>GRPC, Google's RPC framework is available for use with a variety of language including but not limited to C++, Java, Ruby, Python, and more. There are four service methods that are available with GRPC: Unary service methods with a single request and single response, Server streaming in which there is a single client request which receives a stream containing a sequence of messages as a response, Client streaming in which the client request is sent via a stream with a sequence of messages which receives a single response, and finally, bidirectional streaming in which two independent streams are used for the request and response. GRPC guarantees message ordering which saves allows a developer to not worry about misordered or dropped messages over a network. This is in fact one of the most convenient parts about GRPC; it makes communication over a network incredibly simple. GRPC allows RPC's to be cancelled at any time (however, changes made during the beginning of the RPC are not undone). Clients are also able to establish timeouts in case the RPC is time sensitive or there are network issues.</p>
 	<p>Secure communication over a network is very important for web applications, and fortunately, GRPC provides built in authentication mechanisms to make this simple to implement. SSL/TLS is integrated to encrypt communications and is easy to set up. Additionally, token based authentication is provided, passing the tokens with a call, allowing for appropriate verification of credentials.</p>
 	<p>Now, we can begin to look at how to use GRPC. All examples given will be in python, however, GRPC is available and used very similarly in all languages. Initially, a service must be defined, naming the service, what is sent and received, and identifying the service type (unary, bidirectional stream, etc). A unary example and a server side streaming example is shown below.</p>
-	<img src="images/unary_service.png" />
+	<img src="unary_service.png" />
 	<br>
-	<img src="images/server_stream.png" />
+	<img src="server_stream.png" />
 	<p> Next, the interfaces for the client and server must be established. The grpcio-tools package is avaialable to make this a interfaces easy to establish. The client must have a stub method and the server must have a servicer method(functionally similar to a stub method for the server). </p>
 	<p> Creating a server is boiled down into implementing the servicer interface and running the server to listen for requests and send information. An example of a unary servicer is shown below.</p>
-	<img src="images/rpc_server.png" />
+	<img src="rpc_server.png" />
 	<p> In this code, the request is asking for a feature, and the method accesses the information and returns the feature if present. (EXPLAIN THE ARGUMENTS). Similarly, methods can be established to handle request streams, where request_iterator replaces the request argument. This allows the request stream to be parsed. Returning a stream of messages is similar, with the use of "yield" instead of return, allowing a sequence of values to be yielded.</p>
 	<p> The client can created a stub method automatically by generating it from the .proto file. Then using RPC is a simple as calling stub.rpc(arg). You may also make an asynchronous call via stub.rpc.future(arg).</p>
 	<p> This is a lot of information to take in, however, google has provided robust api's, tutorials, and more for any language you are looking to use with grpc (https://grpc.io/docs/). Additionally, for reference, there are examples provided (https://github.com/grpc/grpc/tree/master/examples) for working with protocol buffers, and grpc in general. </p>
