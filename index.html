@@ -4,13 +4,30 @@
 <head>
   <meta charset="utf-8">
   <title>gRPC</title>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="index.css">
 </head>
-<div>
+<body>
+<div class="container">
+	
+		<div class="row">
+      <div class="col-lg-2">
+      	<div class="vertical-menu">
+  <a href="#overview" class="active">Overview</a>
+  <a href="#outline">RPC Outline</a>
+  <a href="#buffer">Protocol Buffers</a>
+  <a href="#grpc">gRPC</a>
+  <a href="#methods">Frequently used methods></a>
+</div>
+      </div>
+      <div class="col-lg-10" id="content">
+      	<div id="overview">
 	<h1>Overview</h1>
 	<p>gRPC is a universal RPC (Remote Procedure Call) framework that is provided by Google. This framework is used frequently by technological giants such as Netflix and Square. RPC frameworks allow for simple and convenient ways for client-server applications to call methods outside of their own address space. gRPC simplifies this process and adds a variety of useful features such as interoperability with multiple languages, bidirectional streaming, and more. </p>
 </div>
-<div>
+<div id="outline">
 	<h2>RPC Outline</h2>
 	<p>As described before, RPC frameworks allow two processes to interact despite being outside of their respective address spaces. This is generally useful for client server applications across a network. In this process, the client would want access to a function upon the server, and needs a way to pass parameters to this function and receive output. This is what RPC frameworks are made for. The picture below illustrates the procedure flow of an RPC call.</p>
 	<img src=https://cdncontribute.geeksforgeeks.org/wp-content/uploads/operating-system-remote-procedure-call-1.png />
@@ -18,7 +35,7 @@
 	</p>
 	<p>RPC models are ideal for convenient client-server/query-response applications over a network, which is why they are incredibly common for a variety of popular web applications. gRPC is a very simple to understand and utilize framework that allows for easy integration of RPC structure into one's own projects. Before we begin looking at gRPC itself, let's first get an understanding of "protocol buffers"; the standard format through which data is transferred using gRPC.</p>
 </div>
-<div>
+<div id="buffer">
 	<h2>Protocol Buffers</h2>
 	<p>Protocol buffers are meant to be a "language neutral" format, suggesting that it is an intermediary form of data that can be processed by any programming language. This is useful for client-server applications as the languages used by client and server do not need to be indentical or known in order to communicate effectively. Some more commonly known language neutral formats include json and xml. A protocol buffer is stored in a .proto file which contain "messages" which are data structures. Within each messages, there are varaible names and types that are defined. This is very similar to class structures in object orient programming. Below, there is an example of a protocol buffer that defines an addressbook. </p>
 	<img src="sample_proto.png" />
@@ -28,7 +45,7 @@
 	<p> Last but not least, you are able to change protocol buffers even after instances have been created, you can update the definition of a protocol buffer. The only rules that must be followed to maintain backwards and forwards compatibility are that you cannot change required variables or tag numbers. Additionally, new tag unmbers for optional or repeated fields must be unique.</p>
 	<p>Finally, with an understanding of protocol buffers, we are able to tackle the gRPC itself and how to use it.</p>
 </div>
-<div>
+<div id="grpc">
 	<h2>gRPC</h2>
 	<p>gRPC, Google's RPC framework is available for use with a variety of language including but not limited to C++, Java, Ruby, Python, and more. There are four service methods that are available with gRPC: Unary service methods with a single request and single response, Server streaming in which there is a single client request which receives a stream containing a sequence of messages as a response, Client streaming in which the client request is sent via a stream with a sequence of messages which receives a single response, and finally, bidirectional streaming in which two independent streams are used for the request and response. gRPC guarantees message ordering which saves allows a developer to not worry about misordered or dropped messages over a network. This is in fact one of the most convenient parts about gRPC; it makes communication over a network incredibly simple. gRPC allows RPC's to be cancelled at any time (however, changes made during the beginning of the RPC are not undone). Clients are also able to establish timeouts in case the RPC is time sensitive or there are network issues.</p>
 	<p>Secure communication over a network is very important for web applications, and fortunately, gRPC provides built in authentication mechanisms to make this simple to implement. SSL/TLS is integrated to encrypt communications and is easy to set up. Additionally, token based authentication is provided, passing the tokens with a call, allowing for appropriate verification of credentials.</p>
@@ -43,7 +60,7 @@
 	<p> The client can created a stub method automatically by generating it from the .proto file. Then using RPC is a simple as calling stub.rpc(arg). You may also make an asynchronous call via stub.rpc.future(arg).</p>
 	<p> This is a lot of information to take in, however, google has provided robust <a href="https://grpc.io/docs/">api's, tutorials, and more</a> for any language you are looking to use with gRPC. Additionally, for reference, there are <a href="https://github.com/grpc/grpc/tree/master/examples">examples provided</a> for working with protocol buffers, and gRPC in general. </p>
 </div>
-<div>
+<div id="methods">
 	<h2>Frequently used methods></h2>
 	<p>Finally, we can begin looking at the most commonly used methods when working with the gRPC package that will provide the basic functionality of gRPC to your project.</p>
 	<p>There are convenient methods to allow the creation of both client and server. To create the client, two methods are provided:</p>
@@ -79,4 +96,7 @@
 
 
 </div>
-
+      </div>
+  </div>
+ </div>
+</body>
