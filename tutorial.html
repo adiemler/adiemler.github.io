@@ -41,6 +41,6 @@
 	<img src="rpc_server.png" />
 	<p> In this code, the request is asking for a feature, and the method accesses the information and returns the feature if present. (EXPLAIN THE ARGUMENTS). Similarly, methods can be established to handle request streams, where request_iterator replaces the request argument. This allows the request stream to be parsed. Returning a stream of messages is similar, with the use of "yield" instead of return, allowing a sequence of values to be yielded.</p>
 	<p> The client can created a stub method automatically by generating it from the .proto file. Then using RPC is a simple as calling stub.rpc(arg). You may also make an asynchronous call via stub.rpc.future(arg).</p>
-	<p> This is a lot of information to take in, however, google has provided robust api's, tutorials, and more for any language you are looking to use with grpc (https://grpc.io/docs/). Additionally, for reference, there are examples provided (https://github.com/grpc/grpc/tree/master/examples) for working with protocol buffers, and grpc in general. </p>
+	<p> This is a lot of information to take in, however, google has provided robust <a href="https://grpc.io/docs/">api's, tutorials, and more</a> for any language you are looking to use with grpc. Additionally, for reference, there are <a href="https://github.com/grpc/grpc/tree/master/examples">examples provided</a> for working with protocol buffers, and grpc in general. </p>
 </div>
 
