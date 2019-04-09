@@ -68,6 +68,15 @@
 	<ul>
 		<li> grpc.method_handlers_generic_handler(service, method_handlers)</li>
 	</ul>
-	<p> This generates a GenericRPCHandler to manage RPC requests. It acceptsa service as an argument that specifies the service implemented by the method_handlers, which is a dictionary of method names and RPCMethodHandlers</p>
+	<p> This generates a GenericRPCHandler to manage RPC requests. It acceptsa service as an argument that specifies the service implemented by the method_handlers, which is a dictionary of method names and RPCMethodHandlers.</p>
+	<p> Two frequently used classes that are used to check on the current state of the channel and RPC calls respectively are:</p>
+	<ul>
+		<li> grpc.ChannelConnectivity</li>
+		<li> grpc.StatusCode</li>
+	</ul>
+	<p> These classes respectively contain the state of the chanel or gRPC calls. There is a finite list of states these classes can contain that are listed <a href='https://grpc.io/grpc/python/grpc.html#channel-connectivity'>here</a>. </p>
+	<p> The grpc.Channel class is used on the client side in order to access the channel. In addition to methods that are used to create callable instances of each type of service given an RPC method stub, the api provides a subscription option in order to allow the client to retain information about the state of the channel, through the use of the ChannelConnectivity class described above</p>
+
+
 </div>
 
