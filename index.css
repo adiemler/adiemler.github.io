@@ -4,9 +4,9 @@ body{
 	padding-top:20px;
 }
 .vertical-menu {
-  width: 200px; /* Set a width if you like */
+  width: 16%; /* Set a width if you like */
   position:fixed;
-
+  top: 90px;
 }
 
 .vertical-menu a {
@@ -15,6 +15,7 @@ body{
   display: block; /* Make the links appear below each other */
   padding: 12px; /* Add some padding */
   text-decoration: none; /* Remove underline from links */
+  text-align: center;
 }
 
 .vertical-menu a:hover {
@@ -29,8 +30,20 @@ body{
 	border-top:lightgrey solid 1px;
 }
 #content{
-	background-color: white;
+  background-color: white;
+  top: 10px;
+  width: 78%;
+  float: right;
+  right: 16px;
 }
 .container{
 	width: 90%;
+}
+.name_bar{
+  background: #4CAF50;
+  color: #f1f1f1;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  margin: auto;
 }
