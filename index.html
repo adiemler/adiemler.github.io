@@ -76,7 +76,14 @@
 	</ul>
 	<p> These classes respectively contain the state of the chanel or gRPC calls. There is a finite list of states these classes can contain that are listed <a href='https://grpc.io/grpc/python/grpc.html#channel-connectivity'>here</a>. </p>
 	<p> The grpc.Channel class is used on the client side in order to access the channel. In addition to methods that are used to create callable instances of each type of service given an RPC method stub, the api provides a subscription option in order to allow the client to retain information about the state of the channel, through the use of the ChannelConnectivity class described above</p>
-
-
+	<p> The grpc.Server class contains the basic methods for servicing rpc methods. This class contains the expected methods for starting and stopping the server. Additionally, methods to add secure ports and insecure ports are available to simplify network interfacing. One essential method provided is:</p>
+	<ul>
+		<li> add_generic_rpc_handlers(generic_rpc_handlers)</li>
+	</ul>
+	<p> This takes an iterable of GenericRpcHandlers generated from "grpc.method_handlers_generic_handler" mentioned above. This method is called before the server is started and establishes the methods that will serve RPCs.</p>
+	<p> gRPC also provides many tools to analyze data and information about RPC calls. an exception is provided in grpc.RpcError in order to catch problems with RPC calls. Context (details and basic actions) about an RPC call is provided in multiple forms. The class grpc.RpcContext provides the context avaialble to both server and client regarding a call. The grpc.Call class provides context available on the client side. The class grpc.ServicerContext provides the context from the server side. </p>
 </div>
-
+<div>
+	<h2> Conclusion </h2>
+	<P> Hopefully this tutorial was able to walk you through the basics of gRPC. It's a little bit dense and complicated at first, however, gRPC is fairly intuitive once you get a basic grasp of the concepts behind it. Fortunately, there is a wealth of tutorials available online regarding the subject along with many examples and api's provided by google themselves. Good luck on your future work with gRPC! </P>
+</div>
