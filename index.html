@@ -19,7 +19,8 @@
   <a href="#outline">RPC Outline</a>
   <a href="#buffer">Protocol Buffers</a>
   <a href="#grpc">gRPC</a>
-  <a href="#methods">Frequently used methods></a>
+  <a href="#methods">Frequently used methods</a>
+  <a href="#conclusion">Conclusion</a>
 </div>
       </div>
       <div class="col-lg-10" id="content">
@@ -37,12 +38,12 @@
 </div>
 <div id="buffer">
 	<h2>Protocol Buffers</h2>
-	<p>Protocol buffers are meant to be a "language neutral" format, suggesting that it is an intermediary form of data that can be processed by any programming language. This is useful for client-server applications as the languages used by client and server do not need to be indentical or known in order to communicate effectively. Some more commonly known language neutral formats include json and xml. A protocol buffer is stored in a .proto file which contain "messages" which are data structures. Within each messages, there are varaible names and types that are defined. This is very similar to class structures in object orient programming. Below, there is an example of a protocol buffer that defines an addressbook. </p>
+	<p>Protocol buffers are meant to be a "language neutral" format, suggesting that it is an intermediary form of data that can be processed by any programming language. This is useful for client-server applications as the languages used by client and server do not need to be indentical or known in order to communicate effectively. Some more commonly known language neutral formats include json and xml. A protocol buffer is stored in a .proto file which contain "messages" which are data structures. Within each messages, there are variable names and types that are defined. This is very similar to class structures in object orient programming. Below, there is an example of a protocol buffer that defines an addressbook. </p>
 	<img src="sample_proto.png" />
 	<p>As you can see in the image above, a Person message is created which contains a variety of values: a string for name, an int for id, an enum (finite list of values) for phone type, etc. Each variable is assigned a "tag" as an identifier for that variable. Additionally, each variable is prefaced with "required", "optional", or "repeated" which defines the use and instantiation of these variables. Once this file is complete, the protocol buffer can be compiled into a class in your respective programming language in the command line using "protoc" from the grpcio-tools package and providing the directory of the protocol file, language that you're using, and the language you are using. Now you are able to use this structure as a class in your code with accessor methods provided for fields. </p>
 	<p> Additionally, there are methods that you can use in order to enhance your construction of protocol buffers. Some convenient methods include IsInitialized(), CopyFrom(message), and Clear() whose functions are fairly self explanatory. Data can be serialized to a string via SerializeToString and parsed from a string using ParseFromString. With these methods, it's easy to work with protocol buffers within a language of your choice. Shown below is an example in Python.</p>
 	<img src='serialization.png' />
-	<p> Last but not least, you are able to change protocol buffers even after instances have been created, you can update the definition of a protocol buffer. The only rules that must be followed to maintain backwards and forwards compatibility are that you cannot change required variables or tag numbers. Additionally, new tag unmbers for optional or repeated fields must be unique.</p>
+	<p> Last but not least, you are able to change protocol buffers even after instances have been created, you can update the definition of a protocol buffer. The only rules that must be followed to maintain backwards and forwards compatibility are that you cannot change required variables or tag numbers. Additionally, new tag numbers for optional or repeated fields must be unique.</p>
 	<p>Finally, with an understanding of protocol buffers, we are able to tackle the gRPC itself and how to use it.</p>
 </div>
 <div id="grpc">
@@ -53,7 +54,7 @@
 	<img src="unary_service.png" />
 	<br>
 	<img src="server_stream.png" />
-	<p> Next, the interfaces for the client and server must be established. The grpcio-tools package is avaialable to make this a interfaces easy to establish. The client must have a stub method and the server must have a servicer method(functionally similar to a stub method for the server). </p>
+	<p> Next, the interfaces for the client and server must be established. The grpcio-tools package is available to make this a interfaces easy to establish. The client must have a stub method and the server must have a servicer method(functionally similar to a stub method for the server). </p>
 	<p> Creating a server is boiled down into implementing the servicer interface and running the server to listen for requests and send information. An example of a unary servicer is shown below.</p>
 	<img src="rpc_server.png" />
 	<p> In this code, the request is asking for a feature, and the method accesses the information and returns the feature if present. (EXPLAIN THE ARGUMENTS). Similarly, methods can be established to handle request streams, where request_iterator replaces the request argument. This allows the request stream to be parsed. Returning a stream of messages is similar, with the use of "yield" instead of return, allowing a sequence of values to be yielded.</p>
@@ -61,7 +62,7 @@
 	<p> This is a lot of information to take in, however, google has provided robust <a href="https://grpc.io/docs/">api's, tutorials, and more</a> for any language you are looking to use with gRPC. Additionally, for reference, there are <a href="https://github.com/grpc/grpc/tree/master/examples">examples provided</a> for working with protocol buffers, and gRPC in general. </p>
 </div>
 <div id="methods">
-	<h2>Frequently used methods></h2>
+	<h2>Frequently used methods</h2>
 	<p>Finally, we can begin looking at the most commonly used methods when working with the gRPC package that will provide the basic functionality of gRPC to your project.</p>
 	<p>There are convenient methods to allow the creation of both client and server. To create the client, two methods are provided:</p>
 	<ul>
@@ -85,16 +86,24 @@
 	<ul>
 		<li> grpc.method_handlers_generic_handler(service, method_handlers)</li>
 	</ul>
-	<p> This generates a GenericRPCHandler to manage RPC requests. It acceptsa service as an argument that specifies the service implemented by the method_handlers, which is a dictionary of method names and RPCMethodHandlers.</p>
+	<p> This generates a GenericRPCHandler to manage RPC requests. It accepts service as an argument that specifies the service implemented by the method_handlers, which is a dictionary of method names and RPCMethodHandlers.</p>
 	<p> Two frequently used classes that are used to check on the current state of the channel and RPC calls respectively are:</p>
 	<ul>
 		<li> grpc.ChannelConnectivity</li>
 		<li> grpc.StatusCode</li>
 	</ul>
-	<p> These classes respectively contain the state of the chanel or gRPC calls. There is a finite list of states these classes can contain that are listed <a href='https://grpc.io/grpc/python/grpc.html#channel-connectivity'>here</a>. </p>
-	<p> The grpc.Channel class is used on the client side in order to access the channel. In addition to methods that are used to create callable instances of each type of service given an RPC method stub, the api provides a subscription option in order to allow the client to retain information about the state of the channel, through the use of the ChannelConnectivity class described above</p>
-
-
+	<p> These classes respectively contain the state of the channel or gRPC calls. There is a finite list of states these classes can contain that are listed <a href='https://grpc.io/grpc/python/grpc.html#channel-connectivity'>here</a>. </p>
+	<p> The grpc.Channel class is used on the client side in order to access the channel. In addition to methods that are used to create callable instances of each type of service given an RPC method stub, the API provides a subscription option in order to allow the client to retain information about the state of the channel, through the use of the ChannelConnectivity class described above</p>
+	<p> The grpc.Server class contains the basic methods for servicing RPC methods. This class contains the expected methods for starting and stopping the server. Additionally, methods to add secure ports and insecure ports are available to simplify network interfacing. One essential method provided is:</p>
+	<ul>
+		<li> add_generic_RPC_handlers(generic_RPC_handlers)</li>
+	</ul>
+	<p> This takes an iterable of GenericRpcHandlers generated from "grpc.method_handlers_generic_handler" mentioned above. This method is called before the server is started and establishes the methods that will serve RPCs.</p>
+	<p> gRPC also provides many tools to analyze data and information about RPC calls. an exception is provided in grpc.RpcError in order to catch problems with RPC calls. Context (details and basic actions) about an RPC call is provided in multiple forms. The class grpc.RpcContext provides the context available to both server and client regarding a call. The grpc.Call class provides context available on the client side. The class grpc.ServicerContext provides the context from the server side. </p>
+</div>
+<div id="conclusion">
+	<h2>Conclusion</h2>
+	<P> Hopefully this tutorial was able to walk you through the basics of gRPC. It's a little bit dense and complicated at first, however, gRPC is fairly intuitive once you get a basic grasp of the concepts behind it. Fortunately, there is a wealth of tutorials available online regarding the subject along with many examples and api's provided by google themselves. Good luck on your future work with gRPC! </p>
 </div>
       </div>
   </div>
