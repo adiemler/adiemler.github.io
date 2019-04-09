@@ -8,15 +8,15 @@
 </head>
 <div>
 	<h1>Overview</h1>
-	<p>GRPC is a universal RPC (Remote Procedure Call) framework that is provided by Google. This framework is used frequently by technological giants such as Netflix and Square. RPC frameworks allow for simple and convenient ways for client-server applications to call methods outside of their own address space. GRPC simplifies this process and adds a variety of useful features such as interoperability with multiple languages, bidirectional streaming, and more. </p>
+	<p>gRPC is a universal RPC (Remote Procedure Call) framework that is provided by Google. This framework is used frequently by technological giants such as Netflix and Square. RPC frameworks allow for simple and convenient ways for client-server applications to call methods outside of their own address space. gRPC simplifies this process and adds a variety of useful features such as interoperability with multiple languages, bidirectional streaming, and more. </p>
 </div>
 <div>
 	<h2>RPC Outline</h2>
 	<p>As described before, RPC frameworks allow two processes to interact despite being outside of their respective address spaces. This is generally useful for client server applications across a network. In this process, the client would want access to a function upon the server, and needs a way to pass parameters to this function and receive output. This is what RPC frameworks are made for. The picture below illustrates the procedure flow of an RPC call.</p>
 	<img src=https://cdncontribute.geeksforgeeks.org/wp-content/uploads/operating-system-remote-procedure-call-1.png />
-	<p> It begins with the client calling a stub method within its own address space.  The purpose of the stub method is to "marshall" the parameters/input to the remote process into a readable and transmittable format which will be sent to the user as well as to "demarshall" output from a remote process call. This format within GRPC is a "protocol buffer" but there will be more on that later. Once the parameters are sent to the server, the parameters are "demarshalled" out of the transmitted format into the respective language of the server. This is done within a corresponding stub method that exists within the server. These are then passed and the remote procedure is called. Once it completes, this whole process is reversed, passing the output through a stub method, from the server to the client, where the output is demarshalled and returned to the client's original process.
+	<p> It begins with the client calling a stub method within its own address space.  The purpose of the stub method is to "marshall" the parameters/input to the remote process into a readable and transmittable format which will be sent to the user as well as to "demarshall" output from a remote process call. This format within gRPC is a "protocol buffer" but there will be more on that later. Once the parameters are sent to the server, the parameters are "demarshalled" out of the transmitted format into the respective language of the server. This is done within a corresponding stub method that exists within the server. These are then passed and the remote procedure is called. Once it completes, this whole process is reversed, passing the output through a stub method, from the server to the client, where the output is demarshalled and returned to the client's original process.
 	</p>
-	<p>RPC models are ideal for convenient client-server/query-response applications over a network, which is why they are incredibly common for a variety of popular web applications. GRPC is a very simple to understand and utilize framework that allows for easy integration of RPC structure into one's own projects. Before we begin looking at GRPC itself, let's first get an understanding of "protocol buffers"; the standard format through which data is transferred using GRPC.</p>
+	<p>RPC models are ideal for convenient client-server/query-response applications over a network, which is why they are incredibly common for a variety of popular web applications. gRPC is a very simple to understand and utilize framework that allows for easy integration of RPC structure into one's own projects. Before we begin looking at gRPC itself, let's first get an understanding of "protocol buffers"; the standard format through which data is transferred using gRPC.</p>
 </div>
 <div>
 	<h2>Protocol Buffers</h2>
@@ -26,13 +26,13 @@
 	<p> Additionally, there are methods that you can use in order to enhance your construction of protocol buffers. Some convenient methods include IsInitialized(), CopyFrom(message), and Clear() whose functions are fairly self explanatory. Data can be serialized to a string via SerializeToString and parsed from a string using ParseFromString. With these methods, it's easy to work with protocol buffers within a language of your choice. Shown below is an example in Python.</p>
 	<img src='serialization.png' />
 	<p> Last but not least, you are able to change protocol buffers even after instances have been created, you can update the definition of a protocol buffer. The only rules that must be followed to maintain backwards and forwards compatibility are that you cannot change required variables or tag numbers. Additionally, new tag unmbers for optional or repeated fields must be unique.</p>
-	<p>Finally, with an understanding of protocol buffers, we are able to tackle the GRPC itself and how to use it.</p>
+	<p>Finally, with an understanding of protocol buffers, we are able to tackle the gRPC itself and how to use it.</p>
 </div>
 <div>
-	<h2>GRPC</h2>
-	<p>GRPC, Google's RPC framework is available for use with a variety of language including but not limited to C++, Java, Ruby, Python, and more. There are four service methods that are available with GRPC: Unary service methods with a single request and single response, Server streaming in which there is a single client request which receives a stream containing a sequence of messages as a response, Client streaming in which the client request is sent via a stream with a sequence of messages which receives a single response, and finally, bidirectional streaming in which two independent streams are used for the request and response. GRPC guarantees message ordering which saves allows a developer to not worry about misordered or dropped messages over a network. This is in fact one of the most convenient parts about GRPC; it makes communication over a network incredibly simple. GRPC allows RPC's to be cancelled at any time (however, changes made during the beginning of the RPC are not undone). Clients are also able to establish timeouts in case the RPC is time sensitive or there are network issues.</p>
-	<p>Secure communication over a network is very important for web applications, and fortunately, GRPC provides built in authentication mechanisms to make this simple to implement. SSL/TLS is integrated to encrypt communications and is easy to set up. Additionally, token based authentication is provided, passing the tokens with a call, allowing for appropriate verification of credentials.</p>
-	<p>Now, we can begin to look at how to use GRPC. All examples given will be in python, however, GRPC is available and used very similarly in all languages. Initially, a service must be defined, naming the service, what is sent and received, and identifying the service type (unary, bidirectional stream, etc). A unary example and a server side streaming example is shown below.</p>
+	<h2>gRPC</h2>
+	<p>gRPC, Google's RPC framework is available for use with a variety of language including but not limited to C++, Java, Ruby, Python, and more. There are four service methods that are available with gRPC: Unary service methods with a single request and single response, Server streaming in which there is a single client request which receives a stream containing a sequence of messages as a response, Client streaming in which the client request is sent via a stream with a sequence of messages which receives a single response, and finally, bidirectional streaming in which two independent streams are used for the request and response. gRPC guarantees message ordering which saves allows a developer to not worry about misordered or dropped messages over a network. This is in fact one of the most convenient parts about gRPC; it makes communication over a network incredibly simple. gRPC allows RPC's to be cancelled at any time (however, changes made during the beginning of the RPC are not undone). Clients are also able to establish timeouts in case the RPC is time sensitive or there are network issues.</p>
+	<p>Secure communication over a network is very important for web applications, and fortunately, gRPC provides built in authentication mechanisms to make this simple to implement. SSL/TLS is integrated to encrypt communications and is easy to set up. Additionally, token based authentication is provided, passing the tokens with a call, allowing for appropriate verification of credentials.</p>
+	<p>Now, we can begin to look at how to use gRPC. All examples given will be in python, however, gRPC is available and used very similarly in all languages. Initially, a service must be defined, naming the service, what is sent and received, and identifying the service type (unary, bidirectional stream, etc). A unary example and a server side streaming example is shown below.</p>
 	<img src="unary_service.png" />
 	<br>
 	<img src="server_stream.png" />
@@ -41,6 +41,33 @@
 	<img src="rpc_server.png" />
 	<p> In this code, the request is asking for a feature, and the method accesses the information and returns the feature if present. (EXPLAIN THE ARGUMENTS). Similarly, methods can be established to handle request streams, where request_iterator replaces the request argument. This allows the request stream to be parsed. Returning a stream of messages is similar, with the use of "yield" instead of return, allowing a sequence of values to be yielded.</p>
 	<p> The client can created a stub method automatically by generating it from the .proto file. Then using RPC is a simple as calling stub.rpc(arg). You may also make an asynchronous call via stub.rpc.future(arg).</p>
-	<p> This is a lot of information to take in, however, google has provided robust <a href="https://grpc.io/docs/">api's, tutorials, and more</a> for any language you are looking to use with grpc. Additionally, for reference, there are <a href="https://github.com/grpc/grpc/tree/master/examples">examples provided</a> for working with protocol buffers, and grpc in general. </p>
+	<p> This is a lot of information to take in, however, google has provided robust <a href="https://grpc.io/docs/">api's, tutorials, and more</a> for any language you are looking to use with gRPC. Additionally, for reference, there are <a href="https://github.com/grpc/grpc/tree/master/examples">examples provided</a> for working with protocol buffers, and gRPC in general. </p>
+</div>
+<div>
+	<h2>Frequently used methods></h2>
+	<p>Finally, we can begin looking at the most commonly used methods when working with the gRPC package that will provide the basic functionality of gRPC to your project.</p>
+	<p>There are convenient methods to allow the creation of both client and server. To create the client, two methods are provided:</p>
+	<ul>
+		<li> grpc.insecure_channel(target, options)</li>
+		<li> grpc.secure_channel(target, credentials, options)</li>
+	</ul>
+	<p> These methods both create a channel to the server with varying levels of security. The target parameter is simply the server address, and the options parameter is an optional list of key-value pairs used to customize the channel. The secure channel has an additional parameter for credentials. These credentials can be generated through the use of built in methods provided by gRPC which can be read about <a href='https://grpc.io/grpc/python/grpc.html#create-client-credentials'>here</a>.</p>
+	<ul>
+		<li> grpc.server(thread_pool, handlers, interceptors, options, maximum_concurrent_rpcs)</li>
+	</ul>
+	<p> This method creates the server that can be accessed by the client that can service RPCs. The thread_pool is not optional. It is a futures.ThreadPoolExecutor object that is necessary to service RPCs. This object can be read about in detail <a href='https://docs.python.org/3/library/concurrent.futures.html'>here</a>. Additionally, gRPC provides methods to create server credentials similar to those used for the client's credentials.</p>
+	<p> There are some methods for creating RPCMethodHandlers that will be used by the server</p>
+	<ul>
+		<li> grpc.unary_unary_rpc_method_handler(behavior, request_deserializer, response_deserializer)</li>
+		<li> grpc.unary_stream_rpc_method_handler(behavior, request_deserializer, response_deserializer)</li>
+		<li> grpc.stream_unary_rpc_method_handler(behavior, request_deserializer, response_deserializer)</li>
+		<li> grpc.stream_stream_rpc_method_handler(behavior, request_deserializer, response_deserializer)</li>
+	</ul>
+	<p> These methods generate RPCMethodHandlers of the specific service type specified in the name. The behavior argument is the implementation of an RPC call. The other arguments are optional behaviors for serialization and deserialization.</p>
+	<p> The method that can be use to manage RPCMethodHandlers is:</p>
+	<ul>
+		<li> grpc.method_handlers_generic_handler(service, method_handlers)</li>
+	</ul>
+	<p> This generates a GenericRPCHandler to manage RPC requests. It acceptsa service as an argument that specifies the service implemented by the method_handlers, which is a dictionary of method names and RPCMethodHandlers</p>
 </div>
 
