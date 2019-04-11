@@ -19,8 +19,10 @@
   <a href="#outline">RPC Outline</a>
   <a href="#buffer">Protocol Buffers</a>
   <a href="#grpc">gRPC</a>
+  <a href="#why">Why Use gRPC Over REST?</a>
   <a href="#methods">Frequently used methods</a>
   <a href="#conclusion">Conclusion</a>
+  <a href="#works">Works Cited </a>
 </div>
       </div>
       <div class="col-lg-10" id="content">
@@ -31,7 +33,7 @@
 <div id="outline">
 	<h2>RPC Outline</h2>
 	<p>As described before, RPC frameworks allow two processes to interact despite being outside of their respective address spaces. This is generally useful for client server applications across a network. In this process, the client would want access to a function upon the server, and needs a way to pass parameters to this function and receive output. This is what RPC frameworks are made for. The picture below illustrates the procedure flow of an RPC call.</p>
-	<img src=https://cdncontribute.geeksforgeeks.org/wp-content/uploads/operating-system-remote-procedure-call-1.png />
+	<img src='rpc.png' />
 	<p> It begins with the client calling a stub method within its own address space.  The purpose of the stub method is to "marshall" the parameters/input to the remote process into a readable and transmittable format which will be sent to the user as well as to "demarshall" output from a remote process call. This format within gRPC is a "protocol buffer" but there will be more on that later. Once the parameters are sent to the server, the parameters are "demarshalled" out of the transmitted format into the respective language of the server. This is done within a corresponding stub method that exists within the server. These are then passed and the remote procedure is called. Once it completes, this whole process is reversed, passing the output through a stub method, from the server to the client, where the output is demarshalled and returned to the client's original process.
 	</p>
 	<p>RPC models are ideal for convenient client-server/query-response applications over a network, which is why they are incredibly common for a variety of popular web applications. gRPC is a very simple to understand and utilize framework that allows for easy integration of RPC structure into one's own projects. Before we begin looking at gRPC itself, let's first get an understanding of "protocol buffers"; the standard format through which data is transferred using gRPC.</p>
@@ -60,6 +62,10 @@
 	<p> In this code, the request is asking for a feature, and the method accesses the information and returns the feature if present. (EXPLAIN THE ARGUMENTS). Similarly, methods can be established to handle request streams, where request_iterator replaces the request argument. This allows the request stream to be parsed. Returning a stream of messages is similar, with the use of "yield" instead of return, allowing a sequence of values to be yielded.</p>
 	<p> The client can created a stub method automatically by generating it from the .proto file. Then using RPC is a simple as calling stub.rpc(arg). You may also make an asynchronous call via stub.rpc.future(arg).</p>
 	<p> This is a lot of information to take in, however, google has provided robust <a href="https://grpc.io/docs/">api's, tutorials, and more</a> for any language you are looking to use with gRPC. Additionally, for reference, there are <a href="https://github.com/grpc/grpc/tree/master/examples">examples provided</a> for working with protocol buffers, and gRPC in general. </p>
+</div>
+<div id="why">
+	<h2> Why use gRPC over REST? </h2>
+	<p> There's a variety of advantages that gRPC offers over traditional REST methods. One advantage comes in the form of the data transfer method. REST uses JSON while gRPC uses protocol buffers as described above. Protocol buffers are strongly typed, meaning the type of variable is pre-established, which prevents any errors in sending information, such as a client using an int value as a string, which is possible given JSON data. While this does make protocol buffers less flexible that JSON, there are still many ways to change protocol buffer formats to fit whatever data must be transmitted. Protocol buffers are also faster to process, which is why they are used by many large scale companies. It was designed by Google to make the most efficient model possible, prioritizing speed and reliability. REST uses HTTP 1.1 typically, while gRPC uses HTTP/2 as the transfer protocol. The use of HTTP/2 makes streams possible, allowing gRPC to take advantage of this with server-side streaming, client-side streaming, and bidirectional streaming. One more advantage is that gRPC has built in load-balancing features. Finally, gRPC is very convenient for the developer. It can autogenerate code that is used for both client and server, simplifying the process.</p>
 </div>
 <div id="methods">
 	<h2>Frequently used methods</h2>
@@ -104,6 +110,10 @@
 <div id="conclusion">
 	<h2>Conclusion</h2>
 	<P> Hopefully this tutorial was able to walk you through the basics of gRPC. It's a little bit dense and complicated at first, however, gRPC is fairly intuitive once you get a basic grasp of the concepts behind it. Fortunately, there is a wealth of tutorials available online regarding the subject along with many examples and api's provided by google themselves. Good luck on your future work with gRPC! </p>
+</div>
+<div id="works">
+	<h5> Works Cited </h5>
+	<p> Singla, Yash. "Implementation of RPC Mechanism." Geeks for Geeks, https://www.geeksforgeeks.org/operating-system-remote-procedure-call-rpc/</p>
 </div>
       </div>
   </div>
